@@ -121,5 +121,3 @@ if(__name__ == '__main__'):
     # Correct indentation
     create_database()
     app.run()
-
-
