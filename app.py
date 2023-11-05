@@ -33,6 +33,7 @@ class FormDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Age = db.Column(db.Integer)
     Annual_Income = db.Column(db.Float)
+    Monthly_Inhand_Salary = db.Column(db.Float)
     Num_Bank_Accounts = db.Column(db.Integer)
     Delay_from_due_date = db.Column(db.Integer)
     Num_Credit_Card = db.Column(db.Integer)
@@ -47,12 +48,16 @@ class FormDetails(db.Model):
     Amount_invested_monthly = db.Column(db.Float)
     Monthly_Balance = db.Column(db.Float)
     Num_Credit_Inquiries = db.Column(db.Integer)
+    Credit_Mix = db.Column(db.String(10)) 
+    Payment_of_Min_Amount = db.Column(db.String(3))  
 
 
 class UserFormId(db.Model):
+    __tablename__ = 'user_from_id'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     form_id = db.Column(db.Integer)
+    credit_score = db.Column(db.Integer)
 
 
 def create_database():
@@ -177,21 +182,21 @@ def predictscore():
             prediction = model.predict(model_input_array)
 
             new_data = FormDetails(
-                Age=age, Annual_Income=annual_income, Num_Bank_Accounts=num_bank_accounts,
+                Age=age, Annual_Income=annual_income, Monthly_Inhand_Salary=monthly_inhand_salary, Num_Bank_Accounts=num_bank_accounts,
                 Delay_from_due_date=delay_from_due_date, Num_Credit_Card=num_credit_card,
                 Num_of_Loan=num_of_loan, Num_of_Delayed_Payment=num_of_delayed_payment,
                 Interest_Rate=interest_rate, Changed_Credit_Limit=changed_credit_limit,
                 Outstanding_Debt=outstanding_debt, Credit_Utilization_Ratio=credit_utilization_ratio,
                 Credit_History_Age=credit_history_age, Total_EMI_per_month=total_emi_per_month,
                 Amount_invested_monthly=amount_invested_monthly, Monthly_Balance=monthly_balance,
-                Num_Credit_Inquiries=num_credit_inquiries
+                Num_Credit_Inquiries=num_credit_inquiries, Credit_Mix = credit_mix, Payment_of_Min_Amount = payment_of_min_amount
             )
 
             db.session.add(new_data)
             db.session.commit()
             formId = new_data.id
             userId = session.get('user_id')
-            db.session.add(UserFormId(user_id=userId, form_id=formId))
+            db.session.add(UserFormId(user_id=userId,form_id=formId,credit_score=prediction))
             db.session.commit()
         except Exception as e:
             flash("An error occurred while storing data. Please try again.", e)

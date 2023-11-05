@@ -37,33 +37,41 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'  # Use SQLite database
 db = SQLAlchemy(app)
 
-# class FormDetails(db.Model):
-#     __tablename__ = 'form_details'
-#     id = db.Column(db.Integer, primary_key=True)
-#     Age = db.Column(db.Integer)
-#     Annual_Income = db.Column(db.Float)
-#     Num_Bank_Accounts = db.Column(db.Integer)
-#     Delay_from_due_date = db.Column(db.Integer)
-#     Num_Credit_Card = db.Column(db.Integer)
-#     Num_of_Loan = db.Column(db.Integer)
-#     Num_of_Delayed_Payment = db.Column(db.Integer)
-#     Interest_Rate = db.Column(db.Float)
-#     Changed_Credit_Limit = db.Column(db.Float)
-#     Outstanding_Debt = db.Column(db.Float)
-#     Credit_Utilization_Ratio = db.Column(db.Float)
-#     Credit_History_Age = db.Column(db.Integer)
-#     Total_EMI_per_month = db.Column(db.Float)
-#     Amount_invested_monthly = db.Column(db.Float)
-#     Monthly_Balance = db.Column(db.Float)
-#     Num_Credit_Inquiries = db.Column(db.Integer)
-
-class UserFormId(db.Model):
+class FormDetails(db.Model):
+    __tablename__ = 'form_details'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
-    form_id = db.Column(db.Integer)
+    Age = db.Column(db.Integer)
+    Annual_Income = db.Column(db.Float)
+    Monthly_Inhand_Salary = db.Column(db.Float)
+    Num_Bank_Accounts = db.Column(db.Integer)
+    Delay_from_due_date = db.Column(db.Integer)
+    Num_Credit_Card = db.Column(db.Integer)
+    Num_of_Loan = db.Column(db.Integer)
+    Num_of_Delayed_Payment = db.Column(db.Integer)
+    Interest_Rate = db.Column(db.Float)
+    Changed_Credit_Limit = db.Column(db.Float)
+    Outstanding_Debt = db.Column(db.Float)
+    Credit_Utilization_Ratio = db.Column(db.Float)
+    Credit_History_Age = db.Column(db.Integer)
+    Total_EMI_per_month = db.Column(db.Float)
+    Amount_invested_monthly = db.Column(db.Float)
+    Monthly_Balance = db.Column(db.Float)
+    Num_Credit_Inquiries = db.Column(db.Integer)
+    Credit_Mix = db.Column(db.String(10)) 
+    Payment_of_Min_Amount = db.Column(db.String(3)) 
+        
 # Create the database and tables
 with app.app_context():
     db.create_all()
 
 if __name__ == '__main__':
     app.run()
+
+
+
+# class UserFormId(db.Model):
+#     __tablename__ = 'user_from_id'
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer)
+#     form_id = db.Column(db.Integer)
+#     credit_score = db.Column(db.Integer)
