@@ -12,8 +12,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.secret_key = secrets.token_hex(16)
 db = SQLAlchemy(app)
-model = pickle.load(open('model.pkl','rb'))
+model = pickle.load(open('model.pkl', 'rb'))
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -25,6 +26,8 @@ class User(db.Model):
         self.password = password
 
 # Create a model for the data
+
+
 class FormDetails(db.Model):
     __tablename__ = 'form_details'
     id = db.Column(db.Integer, primary_key=True)
@@ -45,10 +48,12 @@ class FormDetails(db.Model):
     Monthly_Balance = db.Column(db.Float)
     Num_Credit_Inquiries = db.Column(db.Integer)
 
+
 class UserFormId(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     form_id = db.Column(db.Integer)
+
 
 def create_database():
     database_file = 'users.db'
@@ -57,17 +62,21 @@ def create_database():
         conn.close()
 
 # Function to create the database tables
+
+
 def create_tables():
     with app.app_context():
         db.create_all()
+
 
 @app.route('/', methods=['GET'])
 def index():
     if session.get('logged_in'):
         return render_template('home.html')
-       
+
     else:
         return render_template('index.html', message="Hello!")
+
 
 @app.route("/get", methods=["GET", "POST"])
 def chat():
@@ -75,17 +84,20 @@ def chat():
     input = msg
     return get_Chat_response(input)
 
+
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         try:
-            db.session.add(User(username=request.form['username'], password=request.form['password']))
+            db.session.add(
+                User(username=request.form['username'], password=request.form['password']))
             db.session.commit()
             return redirect(url_for('login'))
         except:
             return render_template('index.html', message="User Already Exists")
     else:
         return render_template('register.html')
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -100,10 +112,12 @@ def login():
             return redirect(url_for('index'))
         return render_template('index.html', message="Incorrect Details")
 
+
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session['logged_in'] = False
     return redirect(url_for('index'))
+
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predictscore():
@@ -115,14 +129,17 @@ def predictscore():
             delay_from_due_date = (request.form.get('Delay_from_due_date'))
             num_credit_card = (request.form.get('Num_Credit_Card'))
             num_of_loan = (request.form.get('Num_of_Loan'))
-            num_of_delayed_payment = (request.form.get('Num_of_Delayed_Payment'))
+            num_of_delayed_payment = (
+                request.form.get('Num_of_Delayed_Payment'))
             interest_rate = (request.form.get('Interest_Rate'))
             changed_credit_limit = (request.form.get('Changed_Credit_Limit'))
             outstanding_debt = (request.form.get('Outstanding_Debt'))
-            credit_utilization_ratio = (request.form.get('Credit_Utilization_Ratio'))
+            credit_utilization_ratio = (
+                request.form.get('Credit_Utilization_Ratio'))
             credit_history_age = (request.form.get('Credit_History_Age'))
             total_emi_per_month = (request.form.get('Total_EMI_per_month'))
-            amount_invested_monthly = (request.form.get('Amount_invested_monthly'))
+            amount_invested_monthly = (
+                request.form.get('Amount_invested_monthly'))
             monthly_balance = (request.form.get('Monthly_Balance'))
             num_credit_inquiries = (request.form.get('Num_Credit_Inquiries'))
             monthly_inhand_salary = (request.form.get('Monthly_Inhand_Salary'))
@@ -139,7 +156,7 @@ def predictscore():
                 Credit_Mix_Bad = 1
             elif credit_mix == 'standard':
                 Credit_Mix_Standard = 1
-             
+
             Payment_of_Min_Amount_No = 0
             Payment_of_Min_Amount_Yes = 0
             Payment_of_Min_Amount_NM = 0
@@ -148,18 +165,17 @@ def predictscore():
                 Payment_of_Min_Amount_No = 1
             elif payment_of_min_amount == 'Yes':
                 Payment_of_Min_Amount_Yes = 1
-   
+
             model_input_array = np.array([
-            age, annual_income,monthly_inhand_salary, num_bank_accounts,num_credit_card, interest_rate,  num_of_loan,delay_from_due_date,
-             num_of_delayed_payment, changed_credit_limit,num_credit_inquiries, outstanding_debt, credit_utilization_ratio,
-            credit_history_age, total_emi_per_month, amount_invested_monthly,
-            monthly_balance,Credit_Mix_Bad,Credit_Mix_Good,Credit_Mix_Standard,Payment_of_Min_Amount_NM,
-            Payment_of_Min_Amount_No,Payment_of_Min_Amount_Yes])
-            
+                age, annual_income, monthly_inhand_salary, num_bank_accounts, num_credit_card, interest_rate, num_of_loan, delay_from_due_date,
+                num_of_delayed_payment, changed_credit_limit, num_credit_inquiries, outstanding_debt, credit_utilization_ratio,
+                credit_history_age, total_emi_per_month, amount_invested_monthly,
+                monthly_balance, Credit_Mix_Bad, Credit_Mix_Good, Credit_Mix_Standard, Payment_of_Min_Amount_NM,
+                Payment_of_Min_Amount_No, Payment_of_Min_Amount_Yes])
+
             model_input_array = model_input_array.reshape(1, -1)
             prediction = model.predict(model_input_array)
-            print(prediction)
-            
+
             new_data = FormDetails(
                 Age=age, Annual_Income=annual_income, Num_Bank_Accounts=num_bank_accounts,
                 Delay_from_due_date=delay_from_due_date, Num_Credit_Card=num_credit_card,
@@ -170,27 +186,29 @@ def predictscore():
                 Amount_invested_monthly=amount_invested_monthly, Monthly_Balance=monthly_balance,
                 Num_Credit_Inquiries=num_credit_inquiries
             )
-            
+
             db.session.add(new_data)
             db.session.commit()
             formId = new_data.id
             userId = session.get('user_id')
-            db.session.add(UserFormId(user_id=userId,form_id=formId))
+            db.session.add(UserFormId(user_id=userId, form_id=formId))
             db.session.commit()
-        except Exception as e: 
+        except Exception as e:
             flash("An error occurred while storing data. Please try again.", e)
         return render_template('form.html', prediction=int(prediction))
     else:
         return render_template('form.html')
 
+
 @app.route('/cibilchatbot', methods=['GET'])
 def cibilchatbot():
     return render_template('chat.html')
 
+
 if __name__ == '__main__':
     # Create the SQLite database
     create_database()
-    
+
     # Create the database tables
     create_tables()
 

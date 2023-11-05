@@ -1,41 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 	<div class="limiter">
-		<nav class="navbar navbar-expand-lg " style="background-color: #EADBC8;">
-			<div class="container-fluid">
-			  <a class="navbar-brand" href="#">Cibilians</a>
-			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			  </button>
-			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				  <li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
-				  </li>
-				  <li class="nav-item">
-					<a class="nav-link" href="/predict">Predict Score</a>
-				  </li>
-				  <li class="nav-item">
-					<a class="nav-link" href="/cibilchatbot">Cibil Chatbot</a>
-				  </li>
-				</ul>
-				<ul>
-				  <li class="d-flex nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  Account
-					</a>
-					<ul class="dropdown-menu">
-					  <li><a class="dropdown-item" href="#">Profile</a></li>
-					  <li><a class="dropdown-item" href="/logout">logout</a></li>
-					 
-					</ul>
-				  </li>
-				 
-				</ul>
-				
-			  </div>
-			</div>
-		  </nav>
+		{% include 'navbar.html' %}
 		  <!-- <div> -->
 			<div>
 		  <div class="container-login100">
@@ -44,8 +10,6 @@
 			<div class="wrap-login100 p-t-50 p-b-90">
 				<div> 
 					<!-- <img src="D:\D Downloads\capstone_reactflaskwebsites\github_all_flask_web\flask-login-master\templates\creditscorepic.jpg"> -->
-					
-					
 					<h2 class="mb-5">Credit Score</h2>
 					<p class="mb-5" style="font-size: 18px;" >A credit score is a three-digit numerical representation of your creditworthiness, reflecting your financial history and how responsible you've been with credit and debt. Lenders use this score to evaluate the risk of extending credit to you. Your credit score can impact various aspects of your financial life, including your ability to secure loans, the interest rates you'll be offered, and even your eligibility for housing or employment. It's essential to understand the factors that influence your credit score and take steps to maintain or improve it, as a higher credit score generally leads to more favorable financial opportunities. </p>
 					<h2 class="mb-5">What affects my credit score ??</h2>
