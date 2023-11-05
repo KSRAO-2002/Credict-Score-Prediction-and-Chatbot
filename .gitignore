@@ -2,3 +2,4 @@ venv
 users.db
 try.py
 __pycache__
+model.pkl
