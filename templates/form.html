@@ -29,6 +29,7 @@
     border-radius: 15px;
   }
 </style>
+
 <body style="background:#F8F0E5">
   <nav class="navbar navbar-expand-lg" style="background-color: #EADBC8;">
     <div class="container-fluid">
@@ -55,15 +56,19 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              <li><a class="dropdown-item" href="/logout">logout</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
+  <!--==========================================================================================-->
   <div class="container my-3 mt-3">
-    <h1 class="mb-8" style="color: #C08261;">Credit Score <span class="text-success"></span></h1>
+    <h1 class="mb-8" style="color: #C08261;">Credit Score </h1>
+
+    <!-- adding form -->
     <form action="/predict" method="POST" class="mt-5">
       <div class="row mt-3">
         <div class="col-md-4">
@@ -72,82 +77,118 @@
         </div>
         <div class="col-md-4">
           <label for="Annual_Income">Annual Income</label>
-          <input type="number" id="Annual_Income" name="Annual_Income" placeholder="Enter Annual Income" class="form-control" required step="0">
+          <input type="number" id="Annual_Income" name="Annual_Income" placeholder="Enter Annual Income" class="form-control" required step="0.01">
         </div>
+        <div class="col-md-4">
+          <label for="Monthly_Inhand_Salary">Monthly Inhand Salary</label>
+          <input type="number" id="Monthly_Inhand_Salary" name="Monthly_Inhand_Salary" placeholder="Enter Monthly Inhand Salary" class="form-control" required step="0.01">
+        </div>
+      </div>
+
+      <div class="row mt-5">
         <div class="col-md-4">
           <label for="Num_Bank_Accounts">Num Bank Accounts</label>
           <input type="number" id="Num_Bank_Accounts" name="Num_Bank_Accounts" placeholder="Enter Num Bank Accounts" class="form-control" required step="0">
-        </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-md-4">
-          <label for="Delay_from_due_date">Delay from due date</label>
-          <input type="number" id="Delay_from_due_date" name="Delay_from_due_date" placeholder="Enter Delay from due date" class="form-control" required step="0">
         </div>
         <div class="col-md-4">
           <label for="Num_Credit_Card">Num Credit Card</label>
           <input type="number" id="Num_Credit_Card" name="Num_Credit_Card" placeholder="Enter Num Credit Card" class="form-control" required step="0">
         </div>
         <div class="col-md-4">
+          <label for="Interest_Rate">Interest Rate</label>
+          <input type="number" step="0.01" id="Interest_Rate" name="Interest_Rate" placeholder="Enter Interest Rate in %" class="form-control" required step="0.01">
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-4">
           <label for="Num_of_Loan">Num of Loan</label>
           <input type="number" id="Num_of_Loan" name="Num_of_Loan" placeholder="Enter Num of Loan" class="form-control" required step="0">
         </div>
-      </div>
-      <div class="row mt-5">
+        <div class="col-md-4">
+          <label for="Delay_from_due_date">Delay from due date</label>
+          <input type="number" id="Delay_from_due_date" name="Delay_from_due_date" placeholder="Enter Delay from due date" class="form-control" required step="0">
+        </div>
         <div class="col-md-4">
           <label for="Num_of_Delayed_Payment">Num of Delayed Payment</label>
           <input type="number" id="Num_of_Delayed_Payment" name="Num_of_Delayed_Payment" placeholder="Enter Num of Delayed Payment" class="form-control" required step="0">
         </div>
-        <div class="col-md-4">
-          <label for="Interest_Rate">Interest Rate</label>
-          <input type="number" step="0.01" id="Interest_Rate" name="Interest_Rate" placeholder="Enter Interest Rate in %" class="form-control" required step="0">
-        </div>
+      </div>
+
+      <div class="row mt-5">
         <div class="col-md-4">
           <label for="Changed_Credit_Limit">Changed Credit Limit</label>
-          <input type="number" id="Changed_Credit_Limit" name="Changed_Credit_Limit" placeholder="Enter Changed Credit Limit" class="form-control" required step="0">
+          <input type="number" id="Changed_Credit_Limit" name="Changed_Credit_Limit" placeholder="Enter Changed Credit Limit" class="form-control" required step="0.01">
         </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-md-4">
-          <label for="Outstanding_Debt">Outstanding Debt</label>
-          <input type="number" id="Outstanding_Debt" name="Outstanding_Debt" placeholder="Enter Outstanding Debt" class="form-control" required step="0">
-        </div>
-        <div class="col-md-4">
-          <label for="Credit_Utilization_Ratio">Credit Utilization Ratio</label>
-          <input type="number" id="Credit_Utilization_Ratio" name="Credit_Utilization_Ratio" placeholder="Enter Credit Utilization Ratio" class="form-control" required step="0">
-        </div>
-        <div class="col-md-4">
-          <label for="Credit_History_Age">Credit History Age</label>
-          <input type="number" id="Credit_History_Age" name="Credit_History_Age" placeholder="Enter Credit History Age" class="form-control" required step="0">
-        </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-md-4">
-          <label for="Total_EMI_per_month">Total EMI per month</label>
-          <input type="number" id="Total_EMI_per_month" name="Total_EMI_per_month" placeholder="Enter Total EMI per month" class="form-control" required step="0">
-        </div>
-        <div class="col-md-4">
-          <label for="Amount_invested_monthly">Amount invested monthly</label>
-          <input type="number" id="Amount_invested_monthly" name="Amount_invested_monthly" placeholder="Enter Amount invested monthly" class="form-control" required step="0">
-        </div>
-        <div class="col-md-4">
-          <label for="Monthly_Balance">Monthly Balance</label>
-          <input type="number" id="Monthly_Balance" name="Monthly_Balance" placeholder="Enter Monthly Balance" class="form-control" required step="0">
-        </div>
-      </div>
-      <div class="row mt-5">
         <div class="col-md-4">
           <label for="Num_Credit_Inquiries">Num Credit Inquiries</label>
           <input type="number" id="Num_Credit_Inquiries" name="Num_Credit_Inquiries" placeholder="Enter Num Credit Inquiries" class="form-control" required step="0">
         </div>
+        <div class="col-md-4">
+          <label for="Credit_Mix">Credit Mix</label>
+          <select id="Credit_Mix" name="Credit_Mix" class="form-select" required>
+            <option value="good">Good</option>
+            <option value="bad">Bad</option>
+            <option value="standard">Standard</option>
+          </select>
+        </div>
       </div>
+
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <label for="Outstanding_Debt">Outstanding Debt</label>
+          <input type="number" id="Outstanding_Debt" name="Outstanding_Debt" placeholder="Enter Outstanding Debt" class="form-control" required step="0.01">
+        </div>
+        <div class="col-md-4">
+          <label for="Credit_Utilization_Ratio">Credit Utilization Ratio</label>
+          <input type="number" id="Credit_Utilization_Ratio" name="Credit_Utilization_Ratio" placeholder="Enter Credit Utilization Ratio" class="form-control" required step="0.01">
+        </div>
+        <div class="col-md-4">
+          <label for="Credit_History_Age"> Credit History Age</label>
+          <input type="number" id="Credit_History_Age" name="Credit_History_Age" placeholder="Enter Credit History Age" class="form-control" required step="0">
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <label for="Payment_of_Min_Amount">Payment of Minimum Amount</label>
+          <select id="Payment_of_Min_Amount" name="Payment_of_Min_Amount" class="form-select" required>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="Total_EMI_per_month"> Total EMI per month</label>
+          <input type="number" id="Total_EMI_per_month" name="Total_EMI_per_month" placeholder="Enter Total EMI per month" class="form-control" required step="0.01">
+        </div>
+        <div class="col-md-4">
+          <label for="Amount_invested_monthly">Amount invested monthly</label>
+          <input type="number" id="Amount_invested_monthly" name="Amount_invested_monthly" placeholder="Enter Amount invested monthly" class="form-control" required step="0.01">
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <label for="Monthly_Balance">Monthly Balance</label>
+          <input type="number" id="Monthly_Balance" name="Monthly_Balance" placeholder="Enter Monthly Balance" class="form-control" required step="0.01">
+        </div>
+      </div>
+
       <div class="row mt-4">
         <div class="col-md-12 text-center">
-          <button type="submit" class="btn btn-lg" style="background-color: #C08261; color: white;">Get Score</button>
+          <button type="submit" class="btn  btn-lg" style="background-color: #C08261; color: white;">Get Score</button>
         </div>
       </div>
     </form>
+
+    {% if prediction %}
+      <div class="row mt-4">
+        <div class="col-md-12 text-center">
+          <h4>Predicted Score: {{ prediction }}</h4>
+        </div>
+      </div>
+    {% endif %}
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
